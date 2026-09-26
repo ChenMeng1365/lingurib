@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require "pathname"
+$LOAD_PATH.unshift(File.expand_path("../lib", __dir__)) unless $LOAD_PATH.include?(File.expand_path("../lib", __dir__))
+
+require "pdns/cli"
+
+exit(Pdns::CLI.run(ARGV))

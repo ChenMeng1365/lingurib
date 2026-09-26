@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative "lib/fofa/version"
+require_relative "lib/pdns/version"
 
 Gem::Specification.new do |spec|
   spec.name = "lingurib"
@@ -19,15 +20,22 @@ Gem::Specification.new do |spec|
     扩展：domains_for_ip —— IP 被动绑定域名查询（host/domain/cert + Host 聚合）。
     附带命令行工具：fofa info/search/count/stats/host/domains/all。
 
+    Passive DNS（pDNS）多数据源统一查询：
+    支持 CIRCL、DNSDB、PassiveTotal、RiskIQ、VirusTotal 五大被动 DNS 数据库。
+    适配器模式架构，新增数据源只需一个文件。多线程并行查询，
+    结果统一归一化为 Pdns::Result 结构体。支持递归查询与多格式输出（JSON/CSV/Text）。
+    零第三方依赖（仅 Ruby 标准库）。
+    附带命令行工具：pdns query/recursive/providers。
+
     后续计划接入更多安全平台 API，逐步打造通用 SEC 接口层。
   DESC
   spec.homepage = "https://github.com/lingurib/lingurib"
   spec.license = "AGPL-3.0"
   spec.required_ruby_version = ">= 3.0"
 
-  spec.files = Dir["lib/**/*.rb"] + %w[bin/fofa LICENSE lingurib.gemspec Gemfile]
+  spec.files = Dir["lib/**/*.rb"] + %w[bin/fofa bin/pdns LICENSE lingurib.gemspec Gemfile PDNS.md]
   spec.bindir = "bin"
-  spec.executables = %w[fofa]
+  spec.executables = %w[fofa pdns]
   spec.require_paths = %w[lib]
 
   spec.add_development_dependency "minitest", "~> 5.0"
